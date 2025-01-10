@@ -1,0 +1,42 @@
+{
+    "candidate_profile": [
+        {
+            "question": "What is your full name?",
+            "answer": "Jay Bharat Jadhav"
+        },
+        {
+            "question": "Could you please provide your email address?",
+            "answer": "jay@gmail.com"
+        },
+        {
+            "question": "May I have your phone number?",
+            "answer": "1442254254"
+        },
+        {
+            "question": "How many years of experience do you have?",
+            "answer": "2"
+        },
+        {
+            "question": "What position(s) are you aiming for?",
+            "answer": "AI Engineer"
+        },
+        {
+            "question": "What is your current location?",
+            "answer": "pune"
+        },
+        {
+            "question": "What is your tech stack?",
+            "answer": "python,sql,excel"
+        }
+    ],
+    "technical_questions_conersation": [
+        {
+            "question": "What is the best way to learn python?",
+            "answer": "learn basics"
+        },
+        {
+            "question": "What are the best ways to learn SQL?",
+            "answer": "bye"
+        }
+    ]
+}

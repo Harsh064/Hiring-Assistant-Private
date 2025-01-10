@@ -1,0 +1,9 @@
+venv/
+
+.env
+
+installed_packges.txt
+
+__pycache__/
+
+
