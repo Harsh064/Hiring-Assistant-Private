@@ -89,7 +89,6 @@ def detect_conversation_end(response):
     
     keywords= ['end','bye','close','stop','terminate']
     
-    # Create a regex pattern to match any of the keywords (case-insensitive)
     pattern = re.compile(r'\b(' + '|'.join(re.escape(keyword) for keyword in keywords) + r')\b', re.IGNORECASE)
 
     return bool(pattern.search(response))
@@ -120,21 +119,18 @@ def make_candidate_profile(profile_chain):
     if "candidate_profile_dict" not in st.session_state:
         st.session_state.candidate_profile_dict = {}
 
-    # Main application logic
-    # Generate questions dynamically
     if st.session_state.question_index < 7:  # Total of 7 questions
         previous_question = ""
         if st.session_state.conversation_history:
             previous_question = st.session_state.conversation_history[-1]["question"]
 
         if not st.session_state.conversation_history or st.session_state.conversation_history[-1]["answer"]:
-            # Generate the next question
+          
             question = profile_chain.run(
                 previous_question=previous_question,
                 index=st.session_state.question_index + 1
             )
     
-            # Save the question in the session
             st.session_state.conversation_history.append({"question": question, "answer": ""})
             # st.write(f"Question {st.session_state.question_index + 1}: {question}")
 
@@ -143,23 +139,20 @@ def make_candidate_profile(profile_chain):
             if qa["answer"]:
                 st.markdown(user_template.replace("{{MSG}}", qa["answer"]), unsafe_allow_html=True)
 
-    # Input for user's response
     if st.session_state.conversation_history:
         if st.session_state.conversation_history[-1]["answer"] == "":
             user_response = st.text_input("Your Answer:", key=f"response_{st.session_state.question_index}")
-            # detect_conversation_end(user_response)
             
             if st.button("Submit Answer", key=f"submit_{st.session_state.question_index}"):
-                # Save the answer and increment the index
+            
                 st.session_state.conversation_history[-1]["answer"] = user_response.strip()
 
                 if user_response and st.session_state.question_index==0:
                     st.session_state.name = user_response
                     
                 st.session_state.question_index += 1
-                st.experimental_rerun()  # Rerun the app to show the next question
+                st.experimental_rerun()  
 
-    # Display the profile summary after completing all questions
     if st.session_state.question_index >= 7:
         st.success("User Profile Created!")
         
@@ -183,7 +176,6 @@ def ask_tech_questions(tech_stack,question_chain):
     tech_stacks = st.session_state.tech_stacks
     # st.write(f"st.session_state.tech_stacks: {st.session_state.tech_stacks}")
 
-    # Maintain conversation history
     if "conversation_history2" not in st.session_state:
         st.session_state.conversation_history2 = []
 
@@ -191,16 +183,14 @@ def ask_tech_questions(tech_stack,question_chain):
         st.write("Please enter your tech stacks to proceed.")
         return
 
-    # Track the current question index
     if "current_index" not in st.session_state:
         st.session_state.current_index = 0
 
-    # Generate a new question automatically if there's no ongoing question
     if st.session_state.current_index < len(tech_stacks):
         current_tech_stack = tech_stacks[st.session_state.current_index]
         previous_answer = ""
         if st.session_state.conversation_history2:
-            # st.write(f"st.session_state.conversation_history[-1]['answer']-->{st.session_state.conversation_history[-1]['answer']}")
+        
             previous_answer = st.session_state.conversation_history2[-1]["answer"]
 
         context = "\n".join(
@@ -208,7 +198,6 @@ def ask_tech_questions(tech_stack,question_chain):
         )
         # Check if the last question was answered and generate a new question
         if not st.session_state.conversation_history2 or st.session_state.conversation_history2[-1]["answer"]:
-            # st.write(f"context:{context}")
             
             question = question_chain.run(
                 tech_stack=current_tech_stack,
@@ -216,7 +205,6 @@ def ask_tech_questions(tech_stack,question_chain):
                 context=context,
             )
             st.session_state.conversation_history2.append({"question": question, "answer": ""})
-            # st.write(f"Q: {question}")
             
     for i, qa in enumerate(st.session_state.conversation_history2):
             st.markdown(bot_template.replace("{{MSG}}", qa["question"]), unsafe_allow_html=True)
@@ -235,13 +223,10 @@ def ask_tech_questions(tech_stack,question_chain):
                     st.session_state.current_index = 1000
                 st.experimental_rerun()  # Automatically refresh the app state
 
-    # Check if there are more tech stacks
     if st.session_state.current_index >= len(tech_stacks):
         st.success("Thank You! Conversation is ended.")
         return True
         # st.write("Conversation History:")
-        # st.json(st.session_state.conversation_history)
-
 
 # Run the application
 if __name__ == "__main__":
