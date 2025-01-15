@@ -1,0 +1,46 @@
+{
+    "candidate_profile": [
+        {
+            "question": "What is your full name?",
+            "answer": "Harshavardhan Patil"
+        },
+        {
+            "question": "Could you please provide your email address?",
+            "answer": "harsh@gmail.com"
+        },
+        {
+            "question": "May I have your phone number?",
+            "answer": "3413412414"
+        },
+        {
+            "question": "How many years of experience do you have?",
+            "answer": "2"
+        },
+        {
+            "question": "What position(s) are you aiming for?",
+            "answer": "ML Engineer"
+        },
+        {
+            "question": "What is your current location?",
+            "answer": "Pune"
+        },
+        {
+            "question": "What is your tech stack?",
+            "answer": "python, ml, sql"
+        }
+    ],
+    "technical_questions_conersation": [
+        {
+            "question": "What is the best way to learn python?",
+            "answer": "Start by basics"
+        },
+        {
+            "question": "What is the best way to get a job in ml?",
+            "answer": "To learn statistics, ml models and prepare for interview"
+        },
+        {
+            "question": "What are some of the most common queries used in SQL?",
+            "answer": "joins, sort by, order by"
+        }
+    ]
+}
